@@ -2,7 +2,9 @@ FROM debian:sid
 WORKDIR /data
 EXPOSE 80
 COPY webBenchmark /data/
+COPY entrypoint.sh /data/
 RUN chmod 777 /data/webBenchmark \
 && apt update -y \
-&& apt install -y nginx
-ENTRYPOINT nginx && /data/webBenchmark -c 512 -s 'http://cyxsjzyw.com/index.jsp'
+&& apt install -y nginx \
+&& chmod 777 /data/entrypoint.sh
+ENTRYPOINT /data/entrypoint.sh
